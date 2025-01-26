@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b41ou3mptfx68"]
+
+[ext_resource type="Script" path="res://box_2.gd" id="1_sqmo8"]
+[ext_resource type="Texture2D" uid="uid://cwij8nij6xeya" path="res://Assets/Free/Items/Boxes/Box2/Idle.png" id="2_am7ck"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_53pnp"]
+size = Vector2(27, 24)
+
+[node name="Box2" type="Area2D"]
+script = ExtResource("1_sqmo8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_am7ck")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -2)
+shape = SubResource("RectangleShape2D_53pnp")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -2.0
+offset_top = -42.0
+offset_right = 4.0
+offset_bottom = -19.0
+text = "!"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
