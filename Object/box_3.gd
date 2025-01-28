@@ -1,6 +1,9 @@
 extends Area2D
 
 var showInteractionLabel = false
+@onready var label = $Area2D/Label
+
+var isAnswered = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,11 +12,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
 	$Label.visible = showInteractionLabel
 	
 	if showInteractionLabel && Input.is_action_just_pressed("interact"):
+		get_tree().paused = true
 		print("Interacted")
-		get_tree().change_scene_to_file("res://Scene/work_calculation.tscn")
+		$CanvasLayer/Work_Calculation/AnimationPlayer.play("blur")
+		#await $CanvasLayer/Work_Calculation/AnimationPlayer.animation_finished
+		
+		#get_tree().call_deferred("res://Scene/work_calculation.tscn")
+		#$CanvasLayer/Work_Calculation/AnimationPlayer.stop()
 		
 		change_rigidbody_mass()
 		showInteractionLabel = false

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://brsy1f8urncwj"]
+[gd_scene load_steps=7 format=3 uid="uid://brsy1f8urncwj"]
 
 [ext_resource type="Texture2D" uid="uid://ds0obj3xcdnuh" path="res://Assets/Free/Items/Boxes/Box3/Idle.png" id="1_whyuy"]
 [ext_resource type="Script" path="res://Object/box_3.gd" id="1_x130s"]
 [ext_resource type="Script" path="res://Object/rigid_body_2d.gd" id="2_48fnk"]
+[ext_resource type="PackedScene" uid="uid://jblql2elylo1" path="res://Scene/work_calculation.tscn" id="4_qcioh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6pjdj"]
 size = Vector2(47, 41)
@@ -38,40 +39,9 @@ texture = ExtResource("1_whyuy")
 position = Vector2(-0.5, 2)
 shape = SubResource("RectangleShape2D_kwdby")
 
-[node name="Control" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_left = 117.0
-offset_top = 25.0
-offset_right = 581.0
-offset_bottom = 256.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TextEdit" type="TextEdit" parent="Control"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -108.0
-offset_top = -103.0
-offset_right = 192.0
-offset_bottom = -46.0
-grow_horizontal = 2
-grow_vertical = 0
-placeholder_text = "Enter your answer"
-
-[node name="Button" type="Button" parent="Control"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 479.0
-offset_top = 14.0
-offset_right = 487.0
-offset_bottom = 22.0
-grow_horizontal = 0
+[node name="Work_Calculation" parent="CanvasLayer" instance=ExtResource("4_qcioh")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -7,6 +7,33 @@
 shader = ExtResource("1_300pw")
 shader_parameter/lod = 0.0
 
+[sub_resource type="Animation" id="Animation_j1ph1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PanelContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_qi601"]
 resource_name = "blur"
 length = 0.3
@@ -35,33 +62,6 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_j1ph1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PanelContainer:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lof0i"]
 _data = {
 "RESET": SubResource("Animation_j1ph1"),
@@ -80,6 +80,7 @@ script = ExtResource("1_i86li")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_gp04e")
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 646.0
 
@@ -117,12 +118,14 @@ Force needed to push the box:
 Work done:
 𝑊 = 𝐹⋅ 𝑑"
 
-[node name="TextEdit" type="TextEdit" parent="PanelContainer/VBoxContainer2"]
+[node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer2"]
 layout_mode = 2
-size_flags_vertical = 3
-placeholder_text = "Enter your Answer"
+placeholder_text = "Enter answer:"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_lof0i")
 }
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer2/Exit_Button" to="." method="_on_exit_button_pressed"]
+[connection signal="text_submitted" from="PanelContainer/VBoxContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]

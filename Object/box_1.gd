@@ -11,5 +11,5 @@ func _ready() -> void:
 func _on_interact():
 	interactable.is_interactable = false
 	print("Interacted")
-	$Popup.popup_centered()
-	$Popup.show()
+	#$Popup.popup_centered()
+	#$Popup.show()
