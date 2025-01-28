@@ -1,7 +1,7 @@
 extends Area2D
 
 var showInteractionLabel = false
-@onready var label = $Area2D/Label
+#@onready var label = $Area2D/Label
 
 var isAnswered = false
 
