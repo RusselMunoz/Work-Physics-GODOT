@@ -1,32 +1,29 @@
 extends Area2D
 
 var showInteractionLabel = false
-#@onready var label = $Area2D/Label
+var isAnswered = false  # Track if already answered
 
-var isAnswered = false
+@onready var rigidbody = $RigidBody2D
+@onready var work_hud: WorkHud = $CanvasLayer/Work_Calculation
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
-	pass
-
-
+	# Connect WorkHud's custom signal to this script
+	work_hud.correct_answer_submitted.connect(_on_correct_answer_submitted)
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	$Label.visible = showInteractionLabel && !isAnswered  # Hide if answered
 	
-	$Label.visible = showInteractionLabel
-	
-	if showInteractionLabel && Input.is_action_just_pressed("interact"):
+	# Only allow interaction if:
+	# - Player is nearby
+	# - Not answered
+	# - "E" is pressed (interact action)
+	if showInteractionLabel && Input.is_action_just_pressed("interact") && !isAnswered:
 		get_tree().paused = true
+		work_hud.show()  # Ensure WorkHud is visible
 		print("Interacted")
 		$CanvasLayer/Work_Calculation/AnimationPlayer.play("blur")
-		#await $CanvasLayer/Work_Calculation/AnimationPlayer.animation_finished
-		
-		#get_tree().call_deferred("res://Scene/work_calculation.tscn")
-		#$CanvasLayer/Work_Calculation/AnimationPlayer.stop()
-		
-		change_rigidbody_mass()
-		showInteractionLabel = false
-		
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player: showInteractionLabel = true
@@ -35,9 +32,17 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if body is Player: showInteractionLabel = false
 	
+func _on_correct_answer_submitted():
+	# Handle correct answer logic
+	isAnswered = true
+	change_rigidbody_mass()
+	get_tree().paused = false
+	$CanvasLayer/Work_Calculation/AnimationPlayer.play_backwards("blur")
+	
 func change_rigidbody_mass() -> void:
 	var rigidbody = $RigidBody2D
 	if rigidbody:
 		rigidbody.change_mass(5.0)  # Call the method to change the mass
+		print("Mass changed to 5.0")
 	else:
 		print("RigidBody2D not found!")
