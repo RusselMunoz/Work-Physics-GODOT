@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://brsy1f8urncwj"]
+[gd_scene load_steps=8 format=3 uid="uid://brsy1f8urncwj"]
 
 [ext_resource type="Texture2D" uid="uid://ds0obj3xcdnuh" path="res://Assets/Free/Items/Boxes/Box3/Idle.png" id="1_whyuy"]
 [ext_resource type="Script" path="res://Object/box_3.gd" id="1_x130s"]
@@ -6,15 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://jblql2elylo1" path="res://Scene/work_calculation.tscn" id="4_qcioh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6pjdj"]
-size = Vector2(47, 41)
+size = Vector2(16.9214, 41)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_63uaw"]
+friction = 0.7
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwdby"]
-size = Vector2(30, 31)
+size = Vector2(37, 27.5)
 
 [node name="Box3" type="Area2D"]
 script = ExtResource("1_x130s")
 
 [node name="Interactable" type="CollisionShape2D" parent="."]
+position = Vector2(1.09515, 0)
+scale = Vector2(2.70721, 0.72885)
 shape = SubResource("RectangleShape2D_6pjdj")
 
 [node name="Label" type="Label" parent="."]
@@ -28,6 +33,8 @@ text = "!"
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(0.5, -2)
 mass = 8.0
+physics_material_override = SubResource("PhysicsMaterial_63uaw")
+lock_rotation = true
 script = ExtResource("2_48fnk")
 
 [node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
@@ -36,7 +43,7 @@ scale = Vector2(1.60714, 1.70833)
 texture = ExtResource("1_whyuy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(-0.5, 2)
+position = Vector2(0, 0.25)
 shape = SubResource("RectangleShape2D_kwdby")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
